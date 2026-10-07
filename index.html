@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAVENZA · Beauty, Treats & Everyday Favourites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Festive Top Bar -->
+  <div class="festive-bar">
+    <span>🪔 Diwali Festive Offers Live — Up to 40% OFF on Sweets & Gifts 🎁</span>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="#" class="brand" id="brandLogo">LAVENZA</a>
+
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input type="search" id="searchInput" placeholder="Search products, brands, categories…" aria-label="Search products" autocomplete="off">
+        <button class="search-clear" id="searchClear" aria-label="Clear search" style="display:none;">✕</button>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="generalEnquiryBtn" aria-label="General enquiry on WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.93 7.93 0 0 0 3.85 1h.01a7.94 7.94 0 0 0 5.54-13.58ZM12.05 18.5h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.65.67-2.43-.16-.25a6.6 6.6 0 1 1 12.22-3.5 6.6 6.6 0 0 1-6.62 6.6Zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.45.1-.13.2-.51.64-.63.77-.11.13-.23.15-.43.05-.2-.1-.83-.31-1.59-.98-.59-.52-.98-1.17-1.1-1.37-.11-.2-.01-.3.09-.4.09-.09.2-.23.3-.35.1-.11.13-.2.2-.33.07-.13.03-.25-.02-.35-.05-.1-.45-1.08-.61-1.48-.16-.39-.33-.34-.45-.34l-.38-.01c-.13 0-.35.05-.53.25s-.7.68-.7 1.66.72 1.93.82 2.06c.1.13 1.42 2.17 3.44 3.04.48.21.86.33 1.15.42.48.15.92.13 1.27.08.39-.06 1.17-.48 1.34-.94.16-.46.16-.86.11-.94-.05-.08-.18-.13-.38-.23Z"/></svg>
+        </button>
+        <button class="icon-btn mobile-only" id="mobileMenuToggle" aria-label="Categories">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category strip under header (desktop) -->
+    <nav class="cat-strip" id="catStrip"></nav>
+  </header>
+
+  <main class="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-eyebrow">✨ Festive Season 2024</span>
+        <h1 class="hero-title">Beauty, Treats & <em>Everyday Favourites</em></h1>
+        <p class="hero-sub">Discover our curated collection of skincare, sweets, chocolates, gifts & more — all in one place.</p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" id="heroShopBtn">Shop Now</button>
+          <button class="btn-hero-secondary" id="heroFestiveBtn">🪔 Diwali Offers</button>
+        </div>
+      </div>
+      <div class="hero-decor" aria-hidden="true">
+        <span class="decor-emoji" style="top:10%;left:15%;animation-delay:0s">🪔</span>
+        <span class="decor-emoji" style="top:70%;left:8%;animation-delay:1s">🍬</span>
+        <span class="decor-emoji" style="top:20%;left:80%;animation-delay:2s">🎁</span>
+        <span class="decor-emoji" style="top:65%;left:85%;animation-delay:0.5s">💄</span>
+        <span class="decor-emoji" style="top:40%;left:50%;animation-delay:1.5s">✨</span>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Shop by Category</h2>
+        <button class="link-btn" data-scroll="catalogue">View all →</button>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <!-- Featured -->
+    <section class="section" id="featuredSection">
+      <div class="section-header">
+        <h2 class="section-title">Featured Products</h2>
+        <button class="link-btn" data-scroll="catalogue">View all →</button>
+      </div>
+      <div class="product-grid" id="featuredGrid"></div>
+    </section>
+
+    <!-- Festive Offers -->
+    <section class="section festive-offers-section" id="festiveSection">
+      <div class="section-header">
+        <h2 class="section-title"><span class="festive-icon">🪔</span> Festive Offers</h2>
+        <span class="festive-tag">Diwali Special</span>
+      </div>
+      <div class="product-grid" id="festiveGrid"></div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="section" id="newArrivalsSection">
+      <div class="section-header">
+        <h2 class="section-title">New Arrivals</h2>
+      </div>
+      <div class="product-grid" id="newArrivalsGrid"></div>
+    </section>
+
+    <!-- Catalogue -->
+    <section class="section catalogue-section" id="catalogue">
+      <div class="catalogue-header">
+        <div>
+          <h2 class="section-title">All Products</h2>
+          <span class="product-count" id="productCount">0 products</span>
+        </div>
+        <div class="catalogue-controls">
+          <button class="filter-toggle-btn" id="mobileFilterBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filters
+            <span class="filter-count" id="filterCountBadge"></span>
+          </button>
+          <select id="sortSelect" class="sort-select">
+            <option value="recommended">Recommended</option>
+            <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="name-asc">Name A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="active-filters" id="activeFilters"></div>
+
+      <div class="catalogue-layout">
+        <!-- Filter sidebar (desktop) -->
+        <aside class="filter-sidebar" id="filterSidebar">
+          <div class="filter-header">
+            <h3>Filters</h3>
+            <button class="clear-filters" id="clearFiltersBtn">Clear all</button>
+          </div>
+          <div id="filterContainer"></div>
+        </aside>
+
+        <!-- Product area -->
+        <div class="product-list-area">
+          <div class="product-grid" id="productGrid"></div>
+          <div class="empty-state" id="emptyState" style="display:none;">
+            <div class="empty-icon">🔍</div>
+            <p class="empty-title">No products found</p>
+            <p class="empty-sub">Try removing some filters or searching for another product.</p>
+            <button class="btn-outline" id="emptyClearBtn">Clear all filters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <span class="footer-logo">LAVENZA</span>
+        <p class="footer-tagline">Beauty, Treats & Everyday Favourites</p>
+        <p class="footer-loc">📍 <span id="footerLocation"></span></p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact Us</h4>
+        <a class="footer-item" id="footerWhatsapp" href="#">
+          <span class="footer-item-icon" style="background:#25D366">💬</span>
+          <div><div class="footer-item-label">WhatsApp</div><div class="footer-item-value" id="footerWhatsappValue"></div></div>
+        </a>
+        <a class="footer-item" id="footerPhone" href="#">
+          <span class="footer-item-icon" style="background:#3b82f6">📞</span>
+          <div><div class="footer-item-label">Call</div><div class="footer-item-value" id="footerPhoneValue"></div></div>
+        </a>
+        <a class="footer-item" id="footerEmail" href="#">
+          <span class="footer-item-icon" style="background:#f59e0b">✉️</span>
+          <div><div class="footer-item-label">Email</div><div class="footer-item-value" id="footerEmailValue"></div></div>
+        </a>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <a class="footer-link" href="#" data-scroll="catalogue">All Products</a>
+        <a class="footer-link" href="#" id="footerEnquiry">Send Enquiry</a>
+        <a class="footer-link" href="#" data-scroll="featuredSection">Featured</a>
+        <a class="footer-link" href="#" data-scroll="festiveSection">Diwali Offers</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> LAVENZA. All rights reserved.</span>
+      <span>Made with ❤️ in India</span>
+    </div>
+  </footer>
+
+  <!-- Enquiry bar -->
+  <div class="enquiry-bar" id="enquiryBar" style="display:none;">
+    <div class="enquiry-bar-info">
+      <span class="enquiry-badge" id="enquiryCount">0</span>
+      <span>products selected</span>
+    </div>
+    <div class="enquiry-bar-actions">
+      <button class="enquiry-clear" id="enquiryClearBtn">Clear</button>
+      <button class="btn-whatsapp" id="sendEnquiryBtn">Send Enquiry</button>
+    </div>
+  </div>
+
+  <!-- Enquiry Modal (Google Sheets + WhatsApp choice) -->
+  <div class="modal-overlay" id="enquiryModal" style="display:none;">
+    <div class="modal-container modal-small">
+      <button class="modal-close" id="closeEnquiryModal">✕</button>
+      <div class="enquiry-modal-body">
+        <div class="enquiry-modal-header">
+          <span class="enquiry-modal-icon">💬</span>
+          <h3>Send Enquiry</h3>
+          <p>Choose how you'd like to reach us</p>
+        </div>
+        <div class="enquiry-modal-options">
+          <button class="enquiry-option" id="enquiryViaWhatsApp">
+            <span class="enquiry-option-icon" style="background:#25D366">💬</span>
+            <div class="enquiry-option-text">
+              <div class="enquiry-option-title">WhatsApp</div>
+              <div class="enquiry-option-sub">Get an instant reply on WhatsApp</div>
+            </div>
+            <span class="enquiry-option-arrow">→</span>
+          </button>
+          <button class="enquiry-option" id="enquiryViaSheet">
+            <span class="enquiry-option-icon" style="background:#0f9d58">📋</span>
+            <div class="enquiry-option-text">
+              <div class="enquiry-option-title">Submit Enquiry Form</div>
+              <div class="enquiry-option-sub">We'll get back to you by phone/email</div>
+            </div>
+            <span class="enquiry-option-arrow">→</span>
+          </button>
+        </div>
+
+        <!-- Sheet form (hidden initially) -->
+        <form class="enquiry-form" id="enquiryForm" style="display:none;">
+          <div class="form-row">
+            <label>Your Name *</label>
+            <input type="text" id="custName" required placeholder="e.g. Priya Sharma">
+          </div>
+          <div class="form-row">
+            <label>Phone Number *</label>
+            <input type="tel" id="custPhone" required placeholder="+91 98765 43210">
+          </div>
+          <div class="form-row">
+            <label>Email (optional)</label>
+            <input type="email" id="custEmail" placeholder="you@example.com">
+          </div>
+          <div class="form-row">
+            <label>Message (optional)</label>
+            <textarea id="custMessage" rows="2" placeholder="Any specific requirement?"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-outline" id="backToOptions">← Back</button>
+            <button type="submit" class="btn-primary" id="submitEnquiryBtn">Submit Enquiry</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div class="modal-overlay" id="productModal" style="display:none;">
+    <div class="modal-container">
+      <button class="modal-close" id="closeModalBtn">✕</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Category Drawer -->
+  <div class="drawer-overlay" id="mobileMenuOverlay"></div>
+  <aside class="mobile-drawer" id="mobileMenuDrawer">
+    <div class="drawer-header">
+      <h3>Categories</h3>
+      <button id="closeMobileMenu">✕</button>
+    </div>
+    <div class="drawer-body" id="mobileMenuBody"></div>
+  </aside>
+
+  <!-- Mobile Filter Drawer -->
+  <div class="drawer-overlay" id="filterDrawerOverlay"></div>
+  <aside class="mobile-drawer" id="filterDrawer">
+    <div class="drawer-header">
+      <h3>Filters</h3>
+      <button id="closeFilterDrawer">✕</button>
+    </div>
+    <div class="drawer-body" id="filterContainerMobile"></div>
+    <div class="drawer-footer">
+      <button class="btn-outline" id="clearFiltersMobile">Clear all</button>
+      <button class="btn-primary" id="applyFiltersMobile">Show Results</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="data/products.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

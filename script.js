@@ -1,8 +1,7 @@
 /* =========================================================
-   LAVENZA — script.js (v2 - CLEAN)
+   LAVENZA — script.js (v2 CLEAN)
    ========================================================= */
 
-/* ===== CONFIG ===== */
 const CONFIG = {
   brandName: "LAVENZA",
   tagline: "Beauty, Treats & Everyday Favourites",
@@ -18,23 +17,15 @@ const CONFIG = {
   enquiryScriptUrl: ""
 };
 
-/* ===== DOM SHORTCUTS ===== */
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
 
-/* ===== STATE ===== */
 let allProducts = [];
 let enquiryList = [];
 let activeFilters = {
-  categories: [],
-  subCategories: [],
-  brands: [],
-  priceMin: null,
-  priceMax: null,
-  stock: [],
-  rating: null,
-  attributes: {},
-  festiveOnly: false
+  categories: [], subCategories: [], brands: [],
+  priceMin: null, priceMax: null, stock: [],
+  rating: null, attributes: {}, festiveOnly: false
 };
 let currentSort = "recommended";
 let searchQuery = "";
@@ -122,19 +113,14 @@ function openGeneralEnquiry() {
   window.open(waLink(msg), "_blank");
 }
 
-/* ===== DATA LOADING ===== */
+/* ===== DATA ===== */
 async function loadProducts() {
-  if (CONFIG.dataSource === "GOOGLE_SHEETS") {
-    console.warn("Google Sheets not configured — using local data.");
-  }
-  if (window.dummyProducts && Array.isArray(window.dummyProducts)) {
-    return window.dummyProducts;
-  }
-  console.error("❌ window.dummyProducts is not defined. Check data/products.js");
+  if (window.dummyProducts && Array.isArray(window.dummyProducts)) return window.dummyProducts;
+  console.error("❌ window.dummyProducts is not defined.");
   return [];
 }
 
-/* ===== RENDER: CATEGORIES ===== */
+/* ===== CATEGORIES ===== */
 function renderCategories(products) {
   const categoryGrid = $("#categoryGrid");
   const catStrip = $("#catStrip");
@@ -149,9 +135,7 @@ function renderCategories(products) {
 
   const counts = {};
   products.forEach(p => {
-    if (p && p.category) {
-      counts[p.category] = (counts[p.category] || 0) + 1;
-    }
+    if (p && p.category) counts[p.category] = (counts[p.category] || 0) + 1;
   });
 
   const emojiMap = {
@@ -182,12 +166,10 @@ function renderCategories(products) {
 
   $$(".category-card").forEach(card => {
     card.addEventListener("click", () => {
-      const cat = card.dataset.category;
-      activeFilters.categories = [cat];
+      activeFilters.categories = [card.dataset.category];
       activeFilters.subCategories = [];
       applyFiltersAndRender();
-      const target = document.getElementById("catalogue");
-      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("catalogue")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
 
@@ -215,7 +197,7 @@ function renderCategories(products) {
   });
 }
 
-/* ===== RENDER: PRODUCT CARD ===== */
+/* ===== PRODUCT CARD ===== */
 function productCardHTML(p) {
   const emoji = productEmoji(p);
   const hasDiscount = p.discount && p.discount > 0;
@@ -283,35 +265,32 @@ function renderProductsGrid(container, products) {
 }
 
 function renderFeatured() {
-  const grid = $("#featuredGrid");
-  const section = $("#featuredSection");
   const list = allProducts.filter(p => p.featured).slice(0, 8);
+  const section = $("#featuredSection");
   if (!list.length) { section.style.display = "none"; return; }
   section.style.display = "block";
-  renderProductsGrid(grid, list);
+  renderProductsGrid($("#featuredGrid"), list);
 }
 
 function renderFestive() {
-  const grid = $("#festiveGrid");
-  const section = $("#festiveSection");
   const list = allProducts.filter(p =>
     p.discount >= 15 && ["Sweets","Chocolates","Gifts","Snacks"].includes(p.category)
   ).slice(0, 4);
+  const section = $("#festiveSection");
   if (!list.length) { section.style.display = "none"; return; }
   section.style.display = "block";
-  renderProductsGrid(grid, list);
+  renderProductsGrid($("#festiveGrid"), list);
 }
 
 function renderNewArrivals() {
-  const grid = $("#newArrivalsGrid");
-  const section = $("#newArrivalsSection");
   const list = allProducts.filter(p => p.newArrival).slice(0, 4);
+  const section = $("#newArrivalsSection");
   if (!list.length) { section.style.display = "none"; return; }
   section.style.display = "block";
-  renderProductsGrid(grid, list);
+  renderProductsGrid($("#newArrivalsGrid"), list);
 }
 
-/* ===== RENDER: FILTERS ===== */
+/* ===== FILTERS ===== */
 function renderFilters(products) {
   const filterContainer = $("#filterContainer");
   const filterContainerMobile = $("#filterContainerMobile");
@@ -518,20 +497,13 @@ function filterProducts(products) {
     });
   }
 
-  if (activeFilters.categories.length)
-    result = result.filter(p => activeFilters.categories.includes(p.category));
-  if (activeFilters.subCategories.length)
-    result = result.filter(p => activeFilters.subCategories.includes(p.subCategory));
-  if (activeFilters.brands.length)
-    result = result.filter(p => activeFilters.brands.includes(p.brand));
-  if (activeFilters.priceMin !== null)
-    result = result.filter(p => p.price >= activeFilters.priceMin);
-  if (activeFilters.priceMax !== null)
-    result = result.filter(p => p.price <= activeFilters.priceMax);
-  if (activeFilters.rating)
-    result = result.filter(p => (p.rating || 0) >= Number(activeFilters.rating));
-  if (activeFilters.festiveOnly)
-    result = result.filter(p => p.discount >= 15 && ["Sweets","Chocolates","Gifts","Snacks"].includes(p.category));
+  if (activeFilters.categories.length) result = result.filter(p => activeFilters.categories.includes(p.category));
+  if (activeFilters.subCategories.length) result = result.filter(p => activeFilters.subCategories.includes(p.subCategory));
+  if (activeFilters.brands.length) result = result.filter(p => activeFilters.brands.includes(p.brand));
+  if (activeFilters.priceMin !== null) result = result.filter(p => p.price >= activeFilters.priceMin);
+  if (activeFilters.priceMax !== null) result = result.filter(p => p.price <= activeFilters.priceMax);
+  if (activeFilters.rating) result = result.filter(p => (p.rating || 0) >= Number(activeFilters.rating));
+  if (activeFilters.festiveOnly) result = result.filter(p => p.discount >= 15 && ["Sweets","Chocolates","Gifts","Snacks"].includes(p.category));
 
   Object.entries(activeFilters.attributes).forEach(([k, vals]) => {
     if (vals.length) result = result.filter(p => p.attributes && vals.includes(p.attributes[k]));
@@ -552,7 +524,7 @@ function sortProducts(products) {
   return arr;
 }
 
-/* ===== ACTIVE CHIPS ===== */
+/* ===== CHIPS ===== */
 function renderActiveChips() {
   const container = $("#activeFilters");
   const badge = $("#filterCountBadge");
@@ -613,7 +585,7 @@ function applyFiltersAndRender() {
   renderFilters(allProducts);
 }
 
-/* ===== PRODUCT MODAL ===== */
+/* ===== PRODUCT DETAILS ===== */
 function openProductDetails(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
@@ -686,7 +658,7 @@ function closeProductModal() {
   document.body.style.overflow = "";
 }
 
-/* ===== ENQUIRY LIST ===== */
+/* ===== ENQUIRY ===== */
 function addToEnquiry(id) {
   if (!enquiryList.includes(id)) {
     enquiryList.push(id);
@@ -708,12 +680,8 @@ function updateEnquiryBar() {
   }
 }
 
-/* ===== ENQUIRY MODAL ===== */
 function openEnquiryModal() {
-  if (!enquiryList.length) {
-    showToast("Please add products first");
-    return;
-  }
+  if (!enquiryList.length) { showToast("Please add products first"); return; }
   $("#enquiryModal").style.display = "flex";
   document.body.style.overflow = "hidden";
   $(".enquiry-modal-options").style.display = "flex";
@@ -947,33 +915,20 @@ async function init() {
   console.log("🚀 Init started");
   try {
     applyConfig();
-    console.log("✅ Config applied");
-
     allProducts = await loadProducts();
     console.log("📦 Products loaded:", allProducts.length);
 
-    if (!allProducts || allProducts.length === 0) {
-      console.error("❌ No products loaded. Check data/products.js");
-      const grid = $("#productGrid");
-      if (grid) grid.innerHTML =
-        '<p style="grid-column:1/-1;padding:40px;text-align:center;color:#c9386b;font-weight:600;">⚠️ No products loaded. Open browser console (F12) for details.</p>';
+    if (!allProducts.length) {
+      $("#productGrid").innerHTML = '<p style="grid-column:1/-1;padding:40px;text-align:center;color:#c9386b;font-weight:600;">⚠️ No products loaded.</p>';
       return;
     }
 
     renderCategories(allProducts);
-    console.log("✅ Categories rendered");
-
     renderFeatured();
     renderFestive();
     renderNewArrivals();
-    console.log("✅ Sections rendered");
-
     renderFilters(allProducts);
-    console.log("✅ Filters rendered");
-
     applyFiltersAndRender();
-    console.log("✅ Products rendered");
-
     updateEnquiryBar();
     wireEvents();
     console.log("✅ Init complete");
